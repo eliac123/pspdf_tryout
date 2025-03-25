@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DF81BF7C2D92BF3D00923AE2 /* Fichier.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DF81BF7B2D92BF3D00923AE2 /* Fichier.pdf */; };
+		DFF4FF3E2D898E080006198E /* EditPdfPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFF4FF3B2D898E080006198E /* EditPdfPanelView.xib */; };
+		DFF4FF3F2D898E080006198E /* EditPdfPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF4FF3D2D898E080006198E /* EditPdfPanelViewController.m */; };
+		DFF4FF432D898E5F0006198E /* PSPDFKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFF4FF422D898E5F0006198E /* PSPDFKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		DFF4FF1F2D898DE40006198E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,9 +31,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DF81BF7B2D92BF3D00923AE2 /* Fichier.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Fichier.pdf; sourceTree = "<group>"; };
 		DFF4FF0D2D898DE30006198E /* dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF4FF1E2D898DE40006198E /* devTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = devTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF4FF282D898DE40006198E /* devUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = devUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFF4FF3B2D898E080006198E /* EditPdfPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditPdfPanelView.xib; sourceTree = "<group>"; };
+		DFF4FF3C2D898E080006198E /* EditPdfPanelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditPdfPanelViewController.h; sourceTree = "<group>"; };
+		DFF4FF3D2D898E080006198E /* EditPdfPanelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPdfPanelViewController.m; sourceTree = "<group>"; };
+		DFF4FF402D898E0A0006198E /* dev-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dev-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF4FF432D898E5F0006198E /* PSPDFKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,10 +88,15 @@
 		DFF4FF042D898DE20006198E = {
 			isa = PBXGroup;
 			children = (
+				DFF4FF3B2D898E080006198E /* EditPdfPanelView.xib */,
+				DFF4FF3C2D898E080006198E /* EditPdfPanelViewController.h */,
+				DFF4FF3D2D898E080006198E /* EditPdfPanelViewController.m */,
+				DF81BF7B2D92BF3D00923AE2 /* Fichier.pdf */,
 				DFF4FF0F2D898DE30006198E /* dev */,
 				DFF4FF212D898DE40006198E /* devTests */,
 				DFF4FF2B2D898DE40006198E /* devUITests */,
 				DFF4FF0E2D898DE30006198E /* Products */,
+				DFF4FF402D898E0A0006198E /* dev-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +130,7 @@
 			);
 			name = dev;
 			packageProductDependencies = (
+				DFF4FF422D898E5F0006198E /* PSPDFKit */,
 			);
 			productName = dev;
 			productReference = DFF4FF0D2D898DE30006198E /* dev.app */;
@@ -175,6 +194,7 @@
 				TargetAttributes = {
 					DFF4FF0C2D898DE20006198E = {
 						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
 					};
 					DFF4FF1D2D898DE40006198E = {
 						CreatedOnToolsVersion = 16.2;
@@ -195,6 +215,9 @@
 			);
 			mainGroup = DFF4FF042D898DE20006198E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DFF4FF412D898E5F0006198E /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DFF4FF0E2D898DE30006198E /* Products */;
 			projectDirPath = "";
@@ -212,6 +235,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF81BF7C2D92BF3D00923AE2 /* Fichier.pdf in Resources */,
+				DFF4FF3E2D898E080006198E /* EditPdfPanelView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF4FF3F2D898E080006198E /* EditPdfPanelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,11 +414,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = dev/dev.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dev/Preview Content\"";
-				DEVELOPMENT_TEAM = XX7KDR9558;
+				DEVELOPMENT_TEAM = B7KB9M75TP;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -411,11 +439,14 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pearltrees.ipad.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pearltrees.ipad.local;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "dev-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -427,11 +458,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = dev/dev.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"dev/Preview Content\"";
-				DEVELOPMENT_TEAM = XX7KDR9558;
+				DEVELOPMENT_TEAM = B7KB9M75TP;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -450,11 +483,13 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pearltrees.ipad.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pearltrees.ipad.local;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "dev-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -591,6 +626,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DFF4FF412D898E5F0006198E /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PSPDFKit/PSPDFKit-SP";
+			requirement = {
+				kind = exactVersion;
+				version = 12.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DFF4FF422D898E5F0006198E /* PSPDFKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFF4FF412D898E5F0006198E /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */;
+			productName = PSPDFKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DFF4FF052D898DE20006198E /* Project object */;
 }
