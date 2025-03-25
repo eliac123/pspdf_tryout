@@ -55,7 +55,7 @@ static int SPACER_INDEX = 3;
 }
 
 -(CustomViewController *) buildPdfController:(NSURL *) documentUrl{
-    PSPDFDocument *document = [[PSPDFDocument alloc] initWithURL:documentUrl];
+    __strong PSPDFDocument *document = [[PSPDFDocument alloc] initWithURL:documentUrl];
     PSPDFConfiguration * _Nonnull configuration = [PSPDFConfiguration configurationWithBuilder:^(PSPDFConfigurationBuilder *builder) {
         builder.pageLabelEnabled = NO;
         builder.documentLabelEnabled = NO;
@@ -83,7 +83,7 @@ static int SPACER_INDEX = 3;
 }
 
 - (void) setupDefaultStyles {
-    id<PSPDFAnnotationStyleManager>  _Nonnull styleManager = PSPDFKitGlobal.sharedInstance.styleManager;
+    __strong id<PSPDFAnnotationStyleManager>  _Nonnull styleManager = PSPDFKitGlobal.sharedInstance.styleManager;
     
     // Line widths.
     [styleManager setLastUsedValue:@(2) forProperty:NSStringFromSelector(@selector(lineWidth)) forKey:PSPDFAnnotationStateVariantIDMake(PSPDFAnnotationStringInk, nil)];
@@ -99,28 +99,30 @@ static int SPACER_INDEX = 3;
     [styleManager setLastUsedValue:@"Helvetica" forProperty:NSStringFromSelector(@selector(fontName)) forKey:PSPDFAnnotationStateVariantIDMake(PSPDFAnnotationStringFreeText, nil)];
 }
 
-//- (PSPDFAnnotationToolbarConfiguration *)makeToolbarConfiguration {
-//    return [[PSPDFAnnotationToolbarConfiguration alloc] initWithAnnotationGroups:@[
-//        [PSPDFAnnotationGroup groupWithItems:@[
-//            [PSPDFAnnotationGroupItem itemWithType:PSPDFAnnotationStringInk variant:nil configurationBlock:
-//                 ^UIImage *(PSPDFAnnotationGroupItem *item, id container, UIColor *tintColor) {
-//                UIImage *image = [UIImage imageNamed:@"ink_Normal.png"];
-//                return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//            }]
-//        ]],
-//        [PSPDFAnnotationGroup groupWithItems:@[
-//            [PSPDFAnnotationGroupItem itemWithType:PSPDFAnnotationStringFreeText variant:nil configurationBlock:
-//                 ^UIImage *(PSPDFAnnotationGroupItem *item, id container, UIColor *tintColor) {
-//                UIImage *image = [UIImage imageNamed:@"freetext_Normal.png"];
-//                return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//            }]
-//        ]],
-//    ]];
-//}
+- (PSPDFAnnotationToolbarConfiguration *)makeToolbarConfiguration {
+    return [[PSPDFAnnotationToolbarConfiguration alloc] initWithAnnotationGroups:@[
+        [PSPDFAnnotationGroup groupWithItems:@[
+            [PSPDFAnnotationGroupItem itemWithType:PSPDFAnnotationStringInk variant:nil configurationBlock:
+                 ^UIImage *(PSPDFAnnotationGroupItem *item, id container, UIColor *tintColor) {
+                UIImage *image = [UIImage imageNamed:@"ink_Normal.png"];
+                return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            }]
+        ]],
+        [PSPDFAnnotationGroup groupWithItems:@[
+            [PSPDFAnnotationGroupItem itemWithType:PSPDFAnnotationStringFreeText variant:nil configurationBlock:
+                 ^UIImage *(PSPDFAnnotationGroupItem *item, id container, UIColor *tintColor) {
+                UIImage *image = [UIImage imageNamed:@"freetext_Normal.png"];
+                return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            }]
+        ]],
+    ]];
+}
 
 -(void) buildViewOnPdfLoaded:(NSURL *) pdfUrl {
     
     _canClose = NO;
+    
+    [self setupColorDesign];
     
     _pdfController = [self buildPdfController:pdfUrl];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:_pdfController];
@@ -134,16 +136,59 @@ static int SPACER_INDEX = 3;
                                              nil]];
     
     [navController setNavigationBarHidden:YES];
+    
     [self setupAnnotationToolbar];
+
+}
+
+- (void)setupColorDesign {
+    UIColor * _Nonnull white = [UIColor colorWithWhite:1.f alpha:1.f];
+    UIColor * _Nonnull grey = [UIColor colorWithWhite:0.4f alpha:.7f];
+    UIColor * _Nonnull darkGrey = [UIColor colorWithWhite:0.1f alpha:1.f];
+    
+    PSPDFAnnotationToolbar *annotationToolbarProxy = [PSPDFAnnotationToolbar appearance];
+    annotationToolbarProxy.selectedTintColor = darkGrey;
+    annotationToolbarProxy.tintColor = grey;
+
+    UIToolbarAppearance *appearance = [[UIToolbarAppearance alloc] init];
+    appearance.backgroundColor = white;
+    annotationToolbarProxy.standardAppearance = appearance;
+    annotationToolbarProxy.compactAppearance = appearance;
+    annotationToolbarProxy.selectedBackgroundColor = white;
+    
+    annotationToolbarProxy.borderedToolbarPositions = PSPDFFlexibleToolbarPositionNone;
+    
+    _pdfView.layer.borderWidth = 1;
+    _pdfView.layer.borderColor = darkGrey.CGColor;
+    _pdfView.layer.cornerRadius = 4;
+    _pdfView.layer.masksToBounds = true;
 }
 
 - (void)setupAnnotationToolbar {
     [_pdfController.annotationToolbarController updateHostView:nil container:nil viewController:_pdfController];
-    [_pdfController.annotationToolbarController showToolbarAnimated:NO completion:nil];
-//
-    PSPDFAnnotationToolbar * _Nonnull annotationToolbar = _pdfController.annotationToolbarController.annotationToolbar;
-    annotationToolbar.collapseUndoButtonsForCompactSizes = NO;
+    [_pdfController.annotationToolbarController showToolbarAnimated:YES completion:nil];
+
+    PSPDFFlexibleToolbarContainer * _Nullable annotationContainer = _pdfController.annotationToolbarController.flexibleToolbarContainer;
     
+    
+    NSLog(@"annotationContainer.isHidden: %d", annotationContainer.isHidden);
+
+    annotationContainer.flexibleToolbar.supportedToolbarPositions = PSPDFFlexibleToolbarPositionInTopBar;
+    
+    
+    [annotationContainer.flexibleToolbar setToolbarPosition: PSPDFFlexibleToolbarPositionInTopBar];
+    
+    [_toolbarView addSubview:annotationContainer];
+    
+    annotationContainer.containerDelegate = self;
+
+    PSPDFAnnotationToolbar * _Nonnull annotationToolbar = _pdfController.annotationToolbarController.annotationToolbar;
+
+    
+    annotationToolbar.collapseUndoButtonsForCompactSizes = NO;
+    PSPDFAnnotationToolbarConfiguration *toolbarConfiguration = [self makeToolbarConfiguration];
+    annotationToolbar.configurations = @[toolbarConfiguration];
+
     
     NSArray<__kindof UIButton *> * _Nonnull buttons = [annotationToolbar buttons];
     PSPDFToolbarGroupButton * inkGroupButton = (PSPDFToolbarGroupButton *)buttons[0];
@@ -164,7 +209,7 @@ static int SPACER_INDEX = 3;
     colorButton.outerBorderPadding = 0;
     colorButton.outerBorderWidth = 1;
     colorButton.outerBorderColor = [UIColor colorWithWhite:0.5f alpha:1.f];
-    CGFloat length = 40;
+    CGFloat length = 15;
     colorButton.contentInset = UIEdgeInsetsMake(length, length, length, length);
     
     PSPDFToolbarButton *undoButton = ((PSPDFToolbarButton *)annotationToolbar.undoButton);
@@ -178,15 +223,6 @@ static int SPACER_INDEX = 3;
 
 // `PSPDFFlexibleToolbarDelegate`
 - (void)flexibleToolbarWillShow:(PSPDFFlexibleToolbar *)toolbar {
-    PSPDFFlexibleToolbarContainer * _Nullable annotationContainer = _pdfController.annotationToolbarController.flexibleToolbarContainer;
-    annotationContainer.flexibleToolbar.supportedToolbarPositions = PSPDFFlexibleToolbarPositionAll;
-    
-    [annotationContainer.flexibleToolbar setToolbarPosition:PSPDFFlexibleToolbarPositionTop];
-    
-//    [_toolbarView addSubview:annotationContainer];
-    
-    annotationContainer.containerDelegate = self;
-
     [_pdfController.annotationStateManager setState:PSPDFAnnotationStringInk variant:nil];
 }
 
@@ -196,74 +232,34 @@ static int SPACER_INDEX = 3;
     CGRect outerBounds = _contentView.bounds;
     float x = outerBounds.origin.x + 18;
     float y = outerBounds.origin.y + topbarHeight;
-    float width = outerBounds.size.width - 36;
+    float width = outerBounds.size.width + 100;
     float height = outerBounds.size.height - topbarHeight - toolbarHeight;
     CGRect result = CGRectMake(x, y, width, height);
     return CGRectIntersection(outerBounds, result);
 }
 
-- (CGRect)getFrameForFullscreenTopbar {
-    CGRect outerBounds = _contentView.bounds;
-    float x = outerBounds.origin.x;
-    float y = outerBounds.origin.y;
-    float width = outerBounds.size.width;
-    float height = TOPBAR_HEIGHT;
-    CGRect result = CGRectMake(x, y, width, height);
-    return CGRectIntersection(outerBounds, result);
-}
-
 - (CGRect)getFrameForToolbar {
-    CGRect outerBounds = _contentView.bounds;
+    CGRect outerBounds = [[UIScreen mainScreen] bounds];
     float x = outerBounds.origin.x + 13;
-    float y = outerBounds.origin.y + outerBounds.size.height - TOOLBAR_HEIGHT + (TOOLBAR_HEIGHT - TOOLBAR_INTERNAL_HEIGHT) / 2;
+    float y = outerBounds.origin.y + outerBounds.size.height - (TOOLBAR_HEIGHT + TOOLBAR_INTERNAL_HEIGHT);
     float width = [self getToolbarWidth];
-    float height = TOOLBAR_INTERNAL_HEIGHT;
+    float height = TOOLBAR_INTERNAL_HEIGHT * 2;
     CGRect result = CGRectMake(x, y, width, height);
     return CGRectIntersection(outerBounds, result);
-}
-
-- (void) doLandscapeLayout:(CGRect)container {
-    [self updateLayout];
-}
-
-- (void) doPortraitLayout:(CGRect)container {
-    [self updateLayout];
 }
 
 - (void)updateLayout {
-    UIWindow *keyWindow = nil;
-    for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
-        if ([scene isKindOfClass:[UIWindowScene class]]) {
-            for (UIWindow *window in scene.windows) {
-                if (window.isKeyWindow) {
-                    keyWindow = window;
-                    break;
-                }
-            }
-        }
-    }
 
-    _contentView.frame = keyWindow.bounds;
+    _contentView.frame = self.view.bounds;
     
     _toolbarView.frame = [self getFrameForToolbar];
     _pdfView.frame = [self getFrameForFullscreenPdfView];
+    
+    [self.view addSubview:_toolbarView];
 }
 
 - (void)initLayout {
-    UIWindow *keyWindow = nil;
-    for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
-        if ([scene isKindOfClass:[UIWindowScene class]]) {
-            for (UIWindow *window in scene.windows) {
-                if (window.isKeyWindow) {
-                    keyWindow = window;
-                    break;
-                }
-            }
-        }
-    }
-    [keyWindow addSubview:_contentView];
-
-    
+    [self.view addSubview:_contentView];
     [self updateLayout];
 }
 
@@ -272,15 +268,17 @@ static int SPACER_INDEX = 3;
 
     _canClose = YES;
     
+    [self initLayout];
+    
+    [self.navigationController pushViewController:_pdfController animated:YES];
+    [_pdfController didMoveToParentViewController:self];
+
+    
     NSURL *documentURL = [[NSBundle mainBundle] URLForResource:@"Fichier" withExtension:@"pdf"];
     
     [self buildViewOnPdfLoaded:documentURL];
-    
-    [self.navigationController pushViewController:_pdfController animated:YES];
 
-    [self initLayout];
 }
-
 @end
 
 

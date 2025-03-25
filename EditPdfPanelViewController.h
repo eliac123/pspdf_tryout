@@ -43,25 +43,25 @@
 @class PDFLoader;
 
 @interface EditPdfPanelViewController : UIViewController<PSPDFFlexibleToolbarDelegate, PSPDFFlexibleToolbarContainerDelegate> {
-    IBOutlet UIView *_mainView;
-    IBOutlet UIView *_contentView;
-    IBOutlet UINavigationBar *_navigationBar;
-    IBOutlet UIView *_pdfView;
-    IBOutlet UIView *_topbarView;
-    IBOutlet UIButton *_saveButton;
-    IBOutlet UIButton *_backgroundSaveButton;
-    IBOutlet UIView *_toolbarView;
+    __strong IBOutlet UIView *_mainView;
+    __strong IBOutlet UIView *_contentView;
+    __strong IBOutlet UINavigationBar *_navigationBar;
+    __strong IBOutlet UIView *_pdfView;
+    __strong IBOutlet UIView *_topbarView;
+    __strong IBOutlet UIButton *_saveButton;
+    __strong IBOutlet UIButton *_backgroundSaveButton;
+    __strong IBOutlet UIView *_toolbarView;
 
-    UpdateDocumentCoordinator *_updateDocumentCoordinator;
-    CustomViewController* _pdfController;
+    __strong UpdateDocumentCoordinator *_updateDocumentCoordinator;
+    __strong CustomViewController* _pdfController;
     BOOL _isEdited;
     BOOL _canClose;
     BOOL _isSaving;
 }
 
-@property NSString *downloadUrl;
-@property id attachmentId;
-@property PDFLoader *loader;
+@property (strong) NSString *downloadUrl;
+@property (strong) id attachmentId;
+@property (strong) PDFLoader *loader;
 
 @end
 

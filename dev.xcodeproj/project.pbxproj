@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DF81BF7C2D92BF3D00923AE2 /* Fichier.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DF81BF7B2D92BF3D00923AE2 /* Fichier.pdf */; };
+		DF81BF812D92F40900923AE2 /* _toolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF81BF802D92F40900923AE2 /* _toolbarView.m */; };
+		DF81BF932D92F80F00923AE2 /* ink_Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = DF81BF922D92F80F00923AE2 /* ink_Normal.png */; };
+		DF81BF952D92F81A00923AE2 /* freetext_Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = DF81BF942D92F81A00923AE2 /* freetext_Normal.png */; };
 		DFF4FF3E2D898E080006198E /* EditPdfPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFF4FF3B2D898E080006198E /* EditPdfPanelView.xib */; };
 		DFF4FF3F2D898E080006198E /* EditPdfPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF4FF3D2D898E080006198E /* EditPdfPanelViewController.m */; };
 		DFF4FF432D898E5F0006198E /* PSPDFKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFF4FF422D898E5F0006198E /* PSPDFKit */; };
@@ -32,6 +35,9 @@
 
 /* Begin PBXFileReference section */
 		DF81BF7B2D92BF3D00923AE2 /* Fichier.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Fichier.pdf; sourceTree = "<group>"; };
+		DF81BF802D92F40900923AE2 /* _toolbarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _toolbarView.m; sourceTree = "<group>"; };
+		DF81BF922D92F80F00923AE2 /* ink_Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ink_Normal.png; sourceTree = "<group>"; };
+		DF81BF942D92F81A00923AE2 /* freetext_Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freetext_Normal.png; sourceTree = "<group>"; };
 		DFF4FF0D2D898DE30006198E /* dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF4FF1E2D898DE40006198E /* devTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = devTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF4FF282D898DE40006198E /* devUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = devUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,7 +95,10 @@
 			isa = PBXGroup;
 			children = (
 				DFF4FF3B2D898E080006198E /* EditPdfPanelView.xib */,
+				DF81BF802D92F40900923AE2 /* _toolbarView.m */,
 				DFF4FF3C2D898E080006198E /* EditPdfPanelViewController.h */,
+				DF81BF942D92F81A00923AE2 /* freetext_Normal.png */,
+				DF81BF922D92F80F00923AE2 /* ink_Normal.png */,
 				DFF4FF3D2D898E080006198E /* EditPdfPanelViewController.m */,
 				DF81BF7B2D92BF3D00923AE2 /* Fichier.pdf */,
 				DFF4FF0F2D898DE30006198E /* dev */,
@@ -235,7 +244,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF81BF952D92F81A00923AE2 /* freetext_Normal.png in Resources */,
 				DF81BF7C2D92BF3D00923AE2 /* Fichier.pdf in Resources */,
+				DF81BF932D92F80F00923AE2 /* ink_Normal.png in Resources */,
 				DFF4FF3E2D898E080006198E /* EditPdfPanelView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF81BF812D92F40900923AE2 /* _toolbarView.m in Sources */,
 				DFF4FF3F2D898E080006198E /* EditPdfPanelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
